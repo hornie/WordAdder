@@ -12,6 +12,7 @@
 std::vector<std::string> firstFile();
 std::vector<std::string> secondFile();
 std::string addFileContents(std::vector<std::string> contentsFF, std::vector<std::string> contentsFS);
+
 int CreateOutputFile();
 
 int main()

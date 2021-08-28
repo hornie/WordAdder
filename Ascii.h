@@ -16,5 +16,4 @@ std::string minilogo =
 "       |__ /\n"
 ;
 std::string longBoi = " <-----------------------------------------------------------------> ";
-std::string differenciator = " <----- FOLDER PATH || USER API -----> ";
 std::string obscurator = " *************";
