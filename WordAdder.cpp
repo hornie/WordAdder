@@ -6,12 +6,14 @@
 #include "WordAdder.h"
 #include <filesystem>
 #include <fstream>
+#include <vector>
 
-std::string firstFile();
-std::string secondFile();
+std::vector<std::string> firstFile();
+std::vector<std::string> secondFile();
+std::string addFileContents(std::vector<std::string> contentsFF, std::vector<std::string> contentsFS);
 int main()
 {
-    firstFile();
+    addFileContents(firstFile(), secondFile());
 }
 
 std::fstream& GotoLine(std::fstream& file, unsigned int num) {
@@ -22,12 +24,12 @@ std::fstream& GotoLine(std::fstream& file, unsigned int num) {
     return file;
 }
 
-std::string firstFile() {
+std::vector<std::string> firstFile() {
 
     std::string userSetFirstFile;
     std::ifstream openFirstFile;
 
-    std::cout << "Please input first file path:";
+    std::cout << "Please input first file path: ";
     std::cin >> userSetFirstFile;
 
     openFirstFile.open(userSetFirstFile.c_str());
@@ -44,26 +46,31 @@ std::string firstFile() {
     GotoLine(usrData, i);
     std::string usrFF;
     usrData >> usrFF;
-    std::cout << usrFF << std::endl;
-    }
-    secondFile();
-    openFirstFile.close();
+    std::vector<std::string> contentsFF;
+    for (std::string line; std::getline(usrData, line); /**/)
+        contentsFF.push_back(line);
 
-    return 0;
+    for (std::vector<std::string>::const_iterator c = contentsFF.begin(); c != contentsFF.end(); ++c)
+        std::cout << *c << ' ';
+    std::cout << "\n";
+    openFirstFile.close();
+    return contentsFF;
+    }
+
 }
 
-std::string secondFile() {
+std::vector<std::string> secondFile() {
 
     std::string userSetSecondFile;
     std::ifstream openSecondFile;
 
-    std::cout << "Please input second file path:";
+    std::cout << "Please input second file path: ";
     std::cin >> userSetSecondFile;
 
     openSecondFile.open(userSetSecondFile.c_str());
 
     openSecondFile.unsetf(std::ios_base::skipws);
-    // count the newlines with an algorithm specialized for counting:
+
     unsigned line_count = std::count(
         std::istream_iterator<char>(openSecondFile),
         std::istream_iterator<char>(),
@@ -72,12 +79,26 @@ std::string secondFile() {
     std::fstream usrData(userSetSecondFile);
     for (int i = 1; i < line_count; i++) {
         GotoLine(usrData, i);
-        std::string usrFS;
-        usrData >> usrFS;
-        std::cout << usrFS << std::endl;
+        std::vector<std::string> contentsFS;
+        for (std::string line; std::getline(usrData, line);)
+            contentsFS.push_back(line);
+
+        for (std::vector<std::string>::const_iterator c = contentsFS.begin(); c != contentsFS.end(); ++c)
+            std::cout << *c << ' ';
+        std::cout << "\n";
+        openSecondFile.close();
+        return contentsFS;
     }
-    openSecondFile.close();
+    
+}
 
-    return 0;
-
+std::string addFileContents(std::vector<std::string> contentsFF, std::vector<std::string> contentsFS) {
+    std::cout << "\n" << "Combined output" << "\n";
+    for (int a = 1; a < contentsFF.size(); a++) {
+        for (int i = 1; i < contentsFS.size(); i++) {
+            std::string combined = contentsFF[a] + contentsFS[i] + " ";
+            std::cout << combined;
+        }
+    }
+    return NULL;
 }
