@@ -41,8 +41,11 @@ std::vector<std::string> firstFile() {
 
     std::cout << "Please specify path to file one: ";
     std::cin >> userSetFirstFile;
-
     openFirstFile.open(userSetFirstFile.c_str());
+    if (!openFirstFile.is_open()) {
+        std::cout << "File does not exist, returning to start" << std::endl;
+        main();
+    }
 
     openFirstFile.unsetf(std::ios_base::skipws);
     // count the newlines with an algorithm specialized for counting:
@@ -78,6 +81,11 @@ std::vector<std::string> secondFile() {
     std::cin >> userSetSecondFile;
 
     openSecondFile.open(userSetSecondFile.c_str());
+
+    if (!openSecondFile.is_open()) {
+        std::cout << "File does not exist, returning to start" << std::endl;
+        main();
+    }
 
     openSecondFile.unsetf(std::ios_base::skipws);
 
@@ -126,11 +134,16 @@ std::string addFileContents(std::vector<std::string> contentsFF, std::vector<std
     std::cout << "\n" << success << "\n";
 
     std::cout << "Go again? 1 - yes; 2 - no" << "\n";
-    int usrAgain;
+    std::cout << "Or type" << " \"exit\" " << "to exit the program." << "\n";
+    std::string usrAgain;
     std::cin >> usrAgain;
-    if (usrAgain == 1) {
+    if (usrAgain == "1") {
         main();
-    } 
+    }
+    else if (usrAgain == "2" || usrAgain == "exit") {
+        std::cout << "Shutting down" << "\n";
+        return NULL;
+    }
     else { 
         return NULL; 
     }
