@@ -11,9 +11,13 @@
 std::vector<std::string> firstFile();
 std::vector<std::string> secondFile();
 std::string addFileContents(std::vector<std::string> contentsFF, std::vector<std::string> contentsFS);
+int CreateOutputFile();
+
 int main()
 {
-    addFileContents(firstFile(), secondFile());
+    CreateOutputFile();
+
+    addFileContents(secondFile(), firstFile());
 }
 
 std::fstream& GotoLine(std::fstream& file, unsigned int num) {
@@ -29,7 +33,7 @@ std::vector<std::string> firstFile() {
     std::string userSetFirstFile;
     std::ifstream openFirstFile;
 
-    std::cout << "Please input first file path: ";
+    std::cout << "Please specify path to file one: ";
     std::cin >> userSetFirstFile;
 
     openFirstFile.open(userSetFirstFile.c_str());
@@ -64,7 +68,7 @@ std::vector<std::string> secondFile() {
     std::string userSetSecondFile;
     std::ifstream openSecondFile;
 
-    std::cout << "Please input second file path: ";
+    std::cout << "Please specify path to file two: ";
     std::cin >> userSetSecondFile;
 
     openSecondFile.open(userSetSecondFile.c_str());
@@ -92,13 +96,29 @@ std::vector<std::string> secondFile() {
     
 }
 
+int CreateOutputFile() {
+
+    std::ofstream outputFile(out);
+    outputFile.open(out, std::ofstream::out | std::ofstream::trunc);
+    outputFile.close();
+    return 1;
+}
+
 std::string addFileContents(std::vector<std::string> contentsFF, std::vector<std::string> contentsFS) {
     std::cout << "\n" << "Combined output" << "\n";
+    std::fstream outputFile(out);
+
     for (int a = 1; a < contentsFF.size(); a++) {
         for (int i = 1; i < contentsFS.size(); i++) {
-            std::string combined = contentsFF[a] + contentsFS[i] + " ";
-            std::cout << combined;
+            std::string combined = contentsFS[i] + contentsFF[a] + "\n";
+            std::cout << combined + " ";
+
+            outputFile << combined;
         }
     }
+    outputFile.close();
+    std::cout << "\n" << success << "\n";
     return NULL;
 }
+
+
