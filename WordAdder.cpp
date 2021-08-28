@@ -17,10 +17,10 @@ int CreateOutputFile();
 
 int main()
 {
-
-    std::cout << logo << std::endl;
-    std::cout << minilogo << std::endl;
-
+    if (FIRST_TIME_HERE) {
+        std::cout << logo << std::endl;
+        std::cout << minilogo << std::endl;
+    }
     CreateOutputFile();
 
     addFileContents(secondFile(), firstFile());
@@ -124,7 +124,16 @@ std::string addFileContents(std::vector<std::string> contentsFF, std::vector<std
     }
     outputFile.close();
     std::cout << "\n" << success << "\n";
-    return NULL;
+
+    std::cout << "Go again? 1 - yes; 2 - no" << "\n";
+    int usrAgain;
+    std::cin >> usrAgain;
+    if (usrAgain == 1) {
+        main();
+    } 
+    else { 
+        return NULL; 
+    }
 }
 
 
