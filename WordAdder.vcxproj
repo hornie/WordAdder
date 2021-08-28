@@ -143,7 +143,11 @@
     <ClCompile Include="WordAdder.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="WordAdder.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="WordAdder.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
