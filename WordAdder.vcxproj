@@ -143,6 +143,7 @@
     <ClCompile Include="WordAdder.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Ascii.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="WordAdder.h" />
   </ItemGroup>

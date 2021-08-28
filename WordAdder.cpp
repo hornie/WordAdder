@@ -3,10 +3,11 @@
 
 #include <iostream>
 #include <string>
-#include "WordAdder.h"
 #include <filesystem>
 #include <fstream>
 #include <vector>
+#include "WordAdder.h"
+#include "Ascii.h"
 
 std::vector<std::string> firstFile();
 std::vector<std::string> secondFile();
@@ -15,6 +16,10 @@ int CreateOutputFile();
 
 int main()
 {
+
+    std::cout << logo << std::endl;
+    std::cout << minilogo << std::endl;
+
     CreateOutputFile();
 
     addFileContents(secondFile(), firstFile());
